@@ -37,7 +37,8 @@ export default function GridContents({
                 {/* <b>{page.properties.Tags.multi_select[0].name}</b> */}
                 <Link
                   className="list-button"
-                  href={`/${category}/${page.url.split("-").reverse()[0].replace("https://www.notion.so/", "") || ""}`}
+                  // page.url 은 노션 도메인/제목에 따라 형태가 달라져 파싱이 깨진다. 블록 id 를 그대로 쓴다.
+                  href={`/${category}/${page.id.replace(/-/g, "")}`}
                 >
                   <span className="label">{page.properties.Name.title[0].plain_text}</span>
                   <span className="arrow">→</span>

@@ -11,7 +11,7 @@ export default function Blocks({ blocks }: { blocks: notion.BlockMap[] }) {
           let block = blockItem.value as unknown as notion.BaseBlock;
           let type = block.type;
 
-          console.log(block);
+          // console.log(block);
 
           if (type === "image") {
             return (
