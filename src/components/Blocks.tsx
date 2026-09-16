@@ -1,5 +1,6 @@
 import * as notion from "notion-types";
 import Image from "next/image";
+import { getImageSource } from "@/global/notion";
 import Link from "next/link";
 
 export default function Blocks({ blocks }: { blocks: notion.BlockMap[] }) {
@@ -14,16 +15,10 @@ export default function Blocks({ blocks }: { blocks: notion.BlockMap[] }) {
           // console.log(block);
 
           if (type === "image") {
-            return (
-              <Image
-                key={index}
-                className="inline-image"
-                src={block.properties.source[0][0]}
-                alt=""
-                width="500"
-                height="500"
-              />
-            );
+            const image = getImageSource(block);
+            if (!image) return null;
+
+            return <Image key={index} className="inline-image" alt="" {...image} />;
           }
           if (type === "divider") {
             return <hr key={index} className="inline-divider" />;
