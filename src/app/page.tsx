@@ -9,9 +9,12 @@ export default async function Main() {
   const pages = await getPageData("");
   const categories = Array.from(
     new Set(
-      pages.reverse().map((page) => {
-        return page.properties.Select.select.name;
-      })
+      pages
+        .reverse()
+        // 카테고리(Select)를 아직 지정하지 않은 문서가 섞여 있을 수 있다.
+        // 한 건만 비어 있어도 홈 전체가 500 이 나므로 여기서 걸러낸다.
+        .map((page) => page.properties.Select?.select?.name)
+        .filter((name: string | undefined): name is string => Boolean(name))
     )
   );
 
